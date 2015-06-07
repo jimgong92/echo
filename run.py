@@ -6,6 +6,5 @@ app.config.update(
   DEBUG = True             #Comment out for production
 )
 
-
 if (__name__):
   app.run()
