@@ -1,0 +1,6 @@
+TODO.md
+.DS_Store
+dump.rdb
+/dist
+/venv
+/node_modules

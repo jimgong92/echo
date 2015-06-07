@@ -1,0 +1,54 @@
+{
+  "name": "echo",
+  "version": "1.0.0",
+  "description": "Geolocation-based messaging aggreggator",
+  "main": "run.py",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "mocha test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jimgong92/echo.git"
+  },
+  "keywords": [
+    "geolocation",
+    "geospatial",
+    "message",
+    "newsfeed"
+  ],
+  "author": "Jimmy Gong",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jimgong92/echo/issues"
+  },
+  "homepage": "https://github.com/jimgong92/echo",
+  "dependencies": {
+    "flux": "^2.0.3",
+    "jquery": "^2.1.4",
+    "keymirror": "^0.1.1",
+    "object-assign": "^3.0.0",
+    "react": "^0.13.3",
+    "react-router": "^0.13.3"
+  },
+  "devDependencies": {
+    "browserify": "^10.2.4",
+    "chalk": "^1.0.0",
+    "gulp": "^3.9.0",
+    "gulp-autoprefixer": "^2.3.1",
+    "gulp-html-replace": "^1.4.4",
+    "gulp-inject": "^1.2.0",
+    "gulp-jshint": "^1.9.2",
+    "gulp-less": "^3.0.3",
+    "gulp-load-plugins": "^0.8.1",
+    "gulp-load-utils": "0.0.4",
+    "gulp-sourcemaps": "^1.5.2",
+    "gulp-watch": "^4.1.1",
+    "minimist": "^1.1.1",
+    "reactify": "^1.1.0",
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.2.2"
+  }
+}
