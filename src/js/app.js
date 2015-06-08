@@ -5,16 +5,27 @@ var Link = Router.Link;
 var DefaultRoute = Router.DefaultRoute;
 
 /**
+ * Needed for onTouchTap events in Material-UI
+ */
+require("react-tap-event-plugin")();
+
+/**
  * Required Components
  */ 
 var App = require('./components/AppComponent');
+var EchoView = require('./components/EchoView');
 
+//TODO: Uncomment when ready
+// var AnalyticsView = require('./components/AnalyticsView');
+// var SettingsView = require('./components/SettingsView');
+
+//TODO: Put in routes 
+// <Route name="analytics" path="analytics" handler={AnalyticsView} />
+// <Route name="settings" path="settings" handler={SettingsView} />
 
 var routes = (
   <Route name="home" path="/" handler={App}>
-    <Route name="analysis" path="analytics" handler={AnalyticsView} />
-    <Route name="settings" path="settings" handler={SettingsView} />
-    <DefaultRoute name="echo" handler={EchoView} />
+    <DefaultRoute handler={EchoView} />
   </Route>
 );
 
