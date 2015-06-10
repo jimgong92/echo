@@ -3,9 +3,11 @@ var Router = require('react-router');
 var RouteHandler = Router.RouteHandler;
 
 /** 
- * Material UI Components
+ * Material UI Setup and Components
  */
 var mui = require('material-ui');
+var ThemeManager = new mui.Styles.ThemeManager();
+var Colors = mui.Styles.Colors;
 var FlatButton = mui.FlatButton;
 
 /** 
@@ -13,20 +15,14 @@ var FlatButton = mui.FlatButton;
  */
 var NavBar = require('./NavBar');
 
-var EchoStore = require('../stores/EchoStore');
-
 var AppComponent = React.createClass({
-  getInitialState: function(){
-    return {};
+  childContextTypes: {
+    muiTheme: React.PropTypes.object
   },
-  componentDidMount: function(){
-    EchoStore.addChangeListener(this._onChange);
-  },
-  componentWillUnmount: function(){
-    EchoStore.removeChangeListener(this._onChange);
-  },
-  _onChange: function(){
-    // this.setState(getUserState());
+  getChildContext: function() {
+    return {
+      muiTheme: ThemeManager.getCurrentTheme()
+    };
   },
   render: function(){
     return (
