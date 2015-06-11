@@ -6,14 +6,46 @@ var EchoConstants = require('../constants/EchoConstants');
 
 var CHANGE_EVENT = 'change';
 
+var echos = [];
+
+(function init(){
+  $.ajax({
+    url: window.location.origin + '/api/echo/all',
+    type: 'GET',
+    success: function(data){
+      console.log(data);
+      EchoStore.emitChange();
+    },
+    error: function(err){
+      console.error("Error retrieving echos");
+      console.log(err);
+    }
+  });
+})();
+
 var EchoStore = assign({}, EventEmitter.prototype, {
   
   postEcho: function(text){
     console.log(text);
     console.log('postEcho in Echo Store');
+    $.ajax({
+      url: window.location.origin + '/api/echo',
+      type: 'POST',
+      data: JSON.stringify({text: text}),
+      contentType: 'application/json',
+      success: function(data){
+        console.log(data);
+        EchoStore.emitChange();
+      },
+      error: function(err){
+        console.error("Error creating echo");
+        console.log(err);
+      }
+    });
   },
   getAllEchos: function(){
     console.log('getAllEchos in Echo Store');
+    return echos;
   },
   emitChange: function(){
     this.emit(CHANGE_EVENT);
