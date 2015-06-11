@@ -32,8 +32,7 @@ var EchoStore = assign({}, EventEmitter.prototype, {
       url: window.location.origin + '/api/echo',
       type: 'POST',
       data: JSON.stringify({
-        text: text,
-        date: new Date()
+        text: text
       }),
       contentType: 'application/json',
       success: function(data){

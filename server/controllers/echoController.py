@@ -4,16 +4,18 @@ from ..db import conn
 def add_echo(echo_obj):
   cur = conn.cursor()
   text = echo_obj['text']
-  date = echo_obj['date']
-  res = {'text': text, 'date': date, 'isSuccessful': True}
+  res = {'text': text, 'isSuccessful': True}
   try:
-    cur.execute("INSERT INTO echos (echo_id, echo_text, echo_date) VALUES (DEFAULT, %s, %s) RETURNING echo_id", (text, date))
-    res['id'] = cur.fetchone()[0]
+    cur.execute("INSERT INTO echos (echo_id, echo_text, echo_date) "
+                "VALUES (DEFAULT, %s, 'now') "
+                "RETURNING echo_id, echo_date", (text,))
+    end = cur.fetchone()
+    res['id'] = end[0];
+    res['date'] = end[1]
     save(cur)
   except:
     res['isSuccessful'] = False
   finally:
-    print res
     return res
 
 def get_all_echos():
@@ -28,7 +30,7 @@ def save(cursor):
   cursor.close()
 
 def formatRow(row):
-  return {'id': row[0], 'text': row[1]}
+  return {'id': row[0], 'text': row[1], 'date': row[2]}
 
 def formatAllRows(row_list):
   res = []
