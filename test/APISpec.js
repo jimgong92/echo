@@ -6,7 +6,8 @@ function spec(){
   describe('API', function(){
 
     var echoObj = {
-      'text': 'Test Echo'
+      'text': 'Test Echo',
+      'date': new Date()
     };
     var echoId;
 
@@ -17,6 +18,7 @@ function spec(){
           var addedEcho = JSON.parse(res.text);
           echoId = addedEcho.id;
           expect(addedEcho.text).to.equal(echoObj.text);
+          expect(addedEcho.date).to.equal(echoObj.date);
           done();
         });
     });
@@ -28,6 +30,7 @@ function spec(){
           var last = echos[echos.length - 1];
           expect(last.id).to.equal(echoId);
           expect(last.text).to.equal(echoObj.text);
+          expect(last.date).to.equal(echoObj.date);
           done();
         });
     });

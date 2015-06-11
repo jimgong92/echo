@@ -5,5 +5,5 @@ USE echoapp;
 
 CREATE TABLE echos (
   echo_id serial PRIMARY KEY,
-  echo_text varchar(255) 
+  echo_text varchar(255)
 );

@@ -22,9 +22,9 @@ var FeedView = React.createClass({
     this.setState(getEchoState());
   },
   render: function(){
-    var echos = this.state.allEchos.map(function(echo){
-      return <li>echo.text</li>
-    })
+    var echos = this.state.allEchos.map(function(echo, index){
+      return <li key={index} className="echo-entry">{echo.id + ': ' + echo.text}</li>
+    });
     return (
       <ul>
         {echos}

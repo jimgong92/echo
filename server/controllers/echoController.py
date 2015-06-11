@@ -4,14 +4,16 @@ from ..db import conn
 def add_echo(echo_obj):
   cur = conn.cursor()
   text = echo_obj['text']
-  res = {'text': text, 'isSuccessful': True}
+  date = echo_obj['date']
+  res = {'text': text, 'date': date, 'isSuccessful': True}
   try:
-    cur.execute("INSERT INTO echos (echo_id, echo_text) VALUES (DEFAULT, %s) RETURNING echo_id", (text,))
+    cur.execute("INSERT INTO echos (echo_id, echo_text, echo_date) VALUES (DEFAULT, %s, %s) RETURNING echo_id", (text, date))
     res['id'] = cur.fetchone()[0]
     save(cur)
   except:
     res['isSuccessful'] = False
   finally:
+    print res
     return res
 
 def get_all_echos():

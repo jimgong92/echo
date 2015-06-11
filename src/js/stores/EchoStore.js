@@ -13,7 +13,7 @@ var echos = [];
     url: window.location.origin + '/api/echo/all',
     type: 'GET',
     success: function(data){
-      console.log(data);
+      echos = data.results;
       EchoStore.emitChange();
     },
     error: function(err){
@@ -31,7 +31,10 @@ var EchoStore = assign({}, EventEmitter.prototype, {
     $.ajax({
       url: window.location.origin + '/api/echo',
       type: 'POST',
-      data: JSON.stringify({text: text}),
+      data: JSON.stringify({
+        text: text,
+        date: new Date()
+      }),
       contentType: 'application/json',
       success: function(data){
         console.log(data);
@@ -45,6 +48,7 @@ var EchoStore = assign({}, EventEmitter.prototype, {
   },
   getAllEchos: function(){
     console.log('getAllEchos in Echo Store');
+    console.log(echos);
     return echos;
   },
   emitChange: function(){
