@@ -5,3 +5,6 @@ dump.rdb
 /venv
 /node_modules
 npm-debug.log
+*.pyc
+/*/*.pyc
+/*/*/*.pyc

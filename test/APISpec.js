@@ -24,9 +24,10 @@ function spec(){
     it('should retrieve stored echos from the database', function(done){
       request.get('/api/echo/all')
         .end(function(err, res){
-          var echos = JSON.parse(res.text);
-          expect(echos[0].id).to.equal(echoId);
-          expect(echos[0].text).to.equal(echoObj.text);
+          var echos = JSON.parse(res.text).results;
+          var last = echos[echos.length - 1];
+          expect(last.id).to.equal(echoId);
+          expect(last.text).to.equal(echoObj.text);
           done();
         });
     });

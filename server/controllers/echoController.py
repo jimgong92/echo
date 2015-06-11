@@ -15,14 +15,22 @@ def add_echo(echo_obj):
     return res
 
 def get_all_echos():
-  print 'in get_all_echos'
   cur = conn.cursor()
   cur.execute("SELECT * FROM echos;")
-  res = cur.fetchall()
+  res = formatAllRows(cur.fetchall())
   save(cur)
   return res
 
 def save(cursor):
   conn.commit()
   cursor.close()
-  # conn.close()
+
+def formatRow(row):
+  return {'id': row[0], 'text': row[1]}
+
+def formatAllRows(row_list):
+  res = []
+  for i in range(len(row_list)):
+    res.append(formatRow(row_list[i]))
+  print res
+  return res

@@ -10,8 +10,7 @@ def router(app):
 
   @app.route('/api/echo/all')
   def get_all():
-    get_all_echos()
-    return 'hello from get all echos'
+    return jsonify(results=get_all_echos())
 
   @app.route('/api/echo', methods=['GET', 'POST'])
   def add_new():
