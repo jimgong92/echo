@@ -4,6 +4,8 @@ var $ = require('jquery');
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var EchoConstants = require('../constants/EchoConstants');
 
+var utils = require('../utils');
+
 var CHANGE_EVENT = 'change';
 
 var echos = [];
@@ -28,21 +30,25 @@ var EchoStore = assign({}, EventEmitter.prototype, {
   postEcho: function(text){
     console.log(text);
     console.log('postEcho in Echo Store');
-    $.ajax({
-      url: window.location.origin + '/api/echo',
-      type: 'POST',
-      data: JSON.stringify({
-        text: text
-      }),
-      contentType: 'application/json',
-      success: function(data){
-        console.log(data);
-        EchoStore.emitChange();
-      },
-      error: function(err){
-        console.error("Error creating echo");
-        console.log(err);
-      }
+    utils.getLocation(function(coordinates){
+      $.ajax({
+        url: window.location.origin + '/api/echo',
+        type: 'POST',
+        data: JSON.stringify({
+          text: text,
+          lat: coordinates.lat,
+          lon: coordinates.lon
+        }),
+        contentType: 'application/json',
+        success: function(data){
+          console.log(data);
+          EchoStore.emitChange();
+        },
+        error: function(err){
+          console.error("Error creating echo");
+          console.log(err);
+        }
+      });
     });
   },
   getAllEchos: function(){
