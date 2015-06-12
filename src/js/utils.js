@@ -15,8 +15,8 @@ var getLocation = function(callback){
   if(gps){
     callback(gps.getCurrentPosition(function(position){
       callback({
-        lat: position.latitude,
-        lon: position.longitude
+        lat: position.coords.latitude,
+        lon: position.coords.longitude
       });
     }, geoError, geoOptions));
   }
