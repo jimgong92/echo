@@ -1,14 +1,18 @@
 import psycopg2
 from ..db import conn
 
+SRID = 4326
+
 def add_echo(echo_obj):
   cur = conn.cursor()
   text = echo_obj['text']
-  res = {'text': text, 'isSuccessful': True}
+  lon = echo_obj['lon']
+  lat = echo_obj['lat']
+  res = {'text': text, 'isSuccessful': True, 'lon': lon, 'lat': lat}
   try:
-    cur.execute("INSERT INTO echos (echo_id, echo_text, echo_date) "
-                "VALUES (DEFAULT, %s, 'now') "
-                "RETURNING echo_id, echo_date", (text,))
+    cur.execute("INSERT INTO echos (echo_id, echo_text, echo_date, echo_location) "
+                "VALUES (DEFAULT, %s, 'now', ST_SetSRID(ST_MakePoint(%s, %s), %s)) "
+                "RETURNING echo_id, echo_date", (text, lon, lat, SRID))
     end = cur.fetchone()
     res['id'] = end[0];
     res['date'] = end[1]
@@ -20,7 +24,7 @@ def add_echo(echo_obj):
 
 def get_all_echos():
   cur = conn.cursor()
-  cur.execute("SELECT * FROM echos;")
+  cur.execute("SELECT echo_id, echo_text, echo_date, ST_X(echo_location), ST_Y(echo_location) FROM echos;")
   res = formatAllRows(cur.fetchall())
   save(cur)
   return res
@@ -30,7 +34,13 @@ def save(cursor):
   cursor.close()
 
 def formatRow(row):
-  return {'id': row[0], 'text': row[1], 'date': row[2]}
+  return {
+    'id': row[0],
+    'text': row[1],
+    'date': row[2],
+    'lon': row[3],
+    'lat': row[4]
+  }
 
 def formatAllRows(row_list):
   res = []
