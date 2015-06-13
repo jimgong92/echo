@@ -23,14 +23,12 @@ var SettingsView = React.createClass({
   render: function(){
     return (
       <div id="settings-view">
-        <form>
-          <label htmlFor="listen-radius">Listen Radius:</label><br />
-          <input type="range" name="listen-radius" 
-            value={this.state.listenRadius} 
-            min={2} max={100} 
-            step={1} 
-            onChange={this._onChange}/>
-        </form>
+        <label htmlFor="listen-radius">Listen Radius:</label><br />
+        <input type="range" name="listen-radius" 
+          value={this.state.listenRadius} 
+          min={2} max={100} 
+          step={1} 
+          onChange={this._onChange}/>
         <span>{this.state.listenRadius + ' mi'}</span>
       </div>
     )

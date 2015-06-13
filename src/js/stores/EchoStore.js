@@ -11,19 +11,36 @@ var CHANGE_EVENT = 'change';
 var _echos = [];
 var _listenRadius = 50;
 
-(function init(){
+function getAll(){
   $.ajax({
     url: window.location.origin + '/api/echo/all',
     type: 'GET',
     success: function(data){
-      echos = data.results;
+      _echos = data.results;
       EchoStore.emitChange();
     },
     error: function(err){
-      console.error("Error retrieving echos");
-      console.log(err);
+      console.error("Error retrieving all echos");
+      console.error(err);
     }
   });
+};
+function getEchosInRadius(){
+  $.ajax({
+    url: window.location.origin + '/api/echo?radius=' + _listenRadius,
+    type: 'GET',
+    success: function(data){
+      _echos = data.results;
+      EchoStore.emitChange();
+    },
+    error: function(err){
+      console.error("Error retrieving echos by radius");
+      console.error(err);
+    }
+  })
+}
+(function init(){
+  getAll();
 })();
 
 var EchoStore = assign({}, EventEmitter.prototype, {
@@ -52,15 +69,19 @@ var EchoStore = assign({}, EventEmitter.prototype, {
       });
     });
   },
-  getAllEchos: function(){
+  getEchos: function(){
     console.log(_echos);
     return _echos;
+  },
+  getAllEchos: function(){
+    //TODO: Retrieve all echos from database
   },
   getListenRadius: function(){
     return _listenRadius;
   },
   updateListenRadius: function(radius){
     _listenRadius = radius;
+    getEchosInRadius();
   },
   emitChange: function(){
     this.emit(CHANGE_EVENT);
