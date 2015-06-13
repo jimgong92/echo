@@ -28,17 +28,17 @@ var echos = [];
 var EchoStore = assign({}, EventEmitter.prototype, {
   
   postEcho: function(text){
-    console.log(text);
-    console.log('postEcho in Echo Store');
     utils.getLocation(function(coordinates){
+      var echoObj = {
+        text: text,
+        lat: coordinates.lat,
+        lon: coordinates.lon
+      };
+      console.log(echoObj);
       $.ajax({
         url: window.location.origin + '/api/echo',
         type: 'POST',
-        data: JSON.stringify({
-          text: text,
-          lat: coordinates.lat,
-          lon: coordinates.lon
-        }),
+        data: JSON.stringify(echoObj),
         contentType: 'application/json',
         success: function(data){
           console.log(data);
@@ -52,7 +52,6 @@ var EchoStore = assign({}, EventEmitter.prototype, {
     });
   },
   getAllEchos: function(){
-    console.log('getAllEchos in Echo Store');
     console.log(echos);
     return echos;
   },

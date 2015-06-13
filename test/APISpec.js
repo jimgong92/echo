@@ -18,7 +18,7 @@ function spec(){
           var addedEcho = JSON.parse(res.text);
           echoId = addedEcho.id;
           expect(addedEcho.text).to.equal(echoObj.text);
-          expect(addedEcho.date).to.equal(echoObj.date);
+          expect(new Date(addedEcho.date).toISOString().substring(0,20)).to.equal(echoObj.date.toISOString().substring(0,20));
           done();
         });
     });
@@ -30,7 +30,7 @@ function spec(){
           var last = echos[echos.length - 1];
           expect(last.id).to.equal(echoId);
           expect(last.text).to.equal(echoObj.text);
-          expect(last.date).to.equal(echoObj.date);
+          expect(new Date(last.date).toISOString().substring(0,20)).to.equal(echoObj.date.toISOString().substring(0,20));
           done();
         });
     });

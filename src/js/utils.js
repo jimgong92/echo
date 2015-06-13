@@ -13,12 +13,12 @@ var geoError = function(err){
 var getLocation = function(callback){
   var gps = navigator.geolocation;
   if(gps){
-    callback(gps.getCurrentPosition(function(position){
+    gps.getCurrentPosition(function(position){
       callback({
         lat: position.coords.latitude,
         lon: position.coords.longitude
       });
-    }, geoError, geoOptions));
+    }, geoError, geoOptions);
   }
   else return false;
 }
