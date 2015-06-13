@@ -8,6 +8,7 @@ var geoOptions = {
 
 var geoError = function(err){
   console.error("Error occurred:", err);
+  callback({ lat: 0, lon: 0 });
 }
 
 var getLocation = function(callback){

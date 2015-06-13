@@ -17,7 +17,7 @@ function spec(){
       request.post('/api/echo')
         .send(echoObj)
         .end(function(err, res){
-          
+
           var addedEcho = JSON.parse(res.text);
           var addedText = addedEcho.text;
           var addedDate = new Date(addedEcho.date).toISOString().substring(0,20);
@@ -35,7 +35,7 @@ function spec(){
     });
 
     it('should retrieve stored echos from the database', function(done){
-      request.get('/api/echo/all')
+      request.get('/api/echo')
         .end(function(err, res){
 
           var echos = JSON.parse(res.text).results;

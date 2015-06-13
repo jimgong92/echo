@@ -5,7 +5,7 @@ var mui = require('material-ui');
 var EchoStore = require('../stores/EchoStore');
 var getEchoState = function(){
   return {
-    allEchos: EchoStore.getAllEchos() || []
+    allEchos: EchoStore.getEchos() || []
   };
 }
 var FeedView = React.createClass({

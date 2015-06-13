@@ -10,10 +10,11 @@ var CHANGE_EVENT = 'change';
 
 var _echos = [];
 var _listenRadius = 50;
+var _listenLon = 0, _listenLat = 0; //Default coordinates of Point(0 0), where the "listen pin" is located 
 
 function getAll(){
   $.ajax({
-    url: window.location.origin + '/api/echo/all',
+    url: window.location.origin + '/api/echo',
     type: 'GET',
     success: function(data){
       _echos = data.results;
@@ -26,8 +27,10 @@ function getAll(){
   });
 };
 function getEchosInRadius(){
+  var rQuery = 'radius=' + _listenRadius;
+  var xyQuery= 'lon=' + _listenLon + '&lat=' + _listenLat;
   $.ajax({
-    url: window.location.origin + '/api/echo?radius=' + _listenRadius,
+    url: window.location.origin + '/api/echo?' + xyQuery + '&' + rQuery,
     type: 'GET',
     success: function(data){
       _echos = data.results;
@@ -40,7 +43,12 @@ function getEchosInRadius(){
   })
 }
 (function init(){
-  getAll();
+  utils.getLocation(function(coordinates){
+    _listenLon = coordinates.lon;
+    _listenLat = coordinates.lat;
+
+    getAll(); //TODO: Change to getEchosInRadius eventually as default init
+  });
 })();
 
 var EchoStore = assign({}, EventEmitter.prototype, {
