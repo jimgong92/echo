@@ -8,7 +8,8 @@ var utils = require('../utils');
 
 var CHANGE_EVENT = 'change';
 
-var echos = [];
+var _echos = [];
+var _listenRadius = 50;
 
 (function init(){
   $.ajax({
@@ -52,8 +53,14 @@ var EchoStore = assign({}, EventEmitter.prototype, {
     });
   },
   getAllEchos: function(){
-    console.log(echos);
-    return echos;
+    console.log(_echos);
+    return _echos;
+  },
+  getListenRadius: function(){
+    return _listenRadius;
+  },
+  updateListenRadius: function(radius){
+    _listenRadius = radius;
   },
   emitChange: function(){
     this.emit(CHANGE_EVENT);
@@ -76,6 +83,9 @@ AppDispatcher.register(function(action){
       break;
     case EchoConstants.GET_ALL_ECHOS:
       EchoStore.getAllEchos();
+      break;
+    case EchoConstants.UPDATE_LISTEN_RADIUS:
+      EchoStore.updateListenRadius(action.radius);
       break;
     default: 
       //no op

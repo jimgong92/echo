@@ -11,20 +11,6 @@ var EchoActions = require('../actions/EchoActions');
 var mui = require('material-ui');
 var FlatButton = mui.FlatButton;
 
-//TODO: Put in Toolbar
-// <ToolbarGroup key={1} float="right">
-  // <Link to="analytics">
-  //   <FlatButton
-  //     secondary={true}
-  //     label="Analytics" />
-  // </Link>
-  // <Link to="settings">
-  //   <FlatButton
-  //     secondary={true}
-  //     label="Settings" />
-  // </Link>
-// </ToolbarGroup>
-
 var NavBar = React.createClass({
   render: function(){
     return (
@@ -33,6 +19,11 @@ var NavBar = React.createClass({
           <FlatButton
             secondary={true}
             label="Home" />
+        </Link>
+        <Link to="settings">
+          <FlatButton
+            secondary={true}
+            label="Settings" />
         </Link>
       </div>
     );

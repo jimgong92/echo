@@ -8,6 +8,7 @@ var ENTER_KEY_CODE = 13;
 
 var TextInput = React.createClass({
   propTypes: {
+    type: ReactPropTypes.string,
     className: ReactPropTypes.string,
     id: ReactPropTypes.string,
     placeholder: ReactPropTypes.string,
@@ -38,6 +39,7 @@ var TextInput = React.createClass({
   render: function(){
     return (
       <input
+        type={this.props.type}
         className={this.props.className}
         id={this.props.id}
         placeholder={this.props.placeholder}

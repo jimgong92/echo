@@ -12,6 +12,12 @@ var EchoActions = {
     AppDispatcher.dispatch({
       actionType: EchoConstants.GET_ALL_ECHOS
     });
+  },
+  updateListenRadius: function(r){
+    AppDispatcher.dispatch({
+      actionType: EchoConstants.UPDATE_LISTEN_RADIUS,
+      radius: r
+    });
   }
 };
 

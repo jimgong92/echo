@@ -14,6 +14,7 @@ var PostView = React.createClass({
     return (
       <div>
         <TextInput 
+          type="text"
           id='echo-input'
           placeholder="What do you want to share?"
           onSave={this._onSave}/>
