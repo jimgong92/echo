@@ -9,7 +9,7 @@ var utils = require('../utils');
 var CHANGE_EVENT = 'change';
 
 var _echos = [];
-var _listenRadius = 50;
+var _listenRadius = 100;
 var _listenLon = 0, _listenLat = 0; //Default coordinates of Point(0 0), where the "listen pin" is located 
 
 function getAll(){
@@ -89,6 +89,8 @@ var EchoStore = assign({}, EventEmitter.prototype, {
   },
   updateListenRadius: function(radius){
     _listenRadius = radius;
+  },
+  saveListenRadius: function(){
     getEchosInRadius();
   },
   emitChange: function(){
@@ -115,6 +117,9 @@ AppDispatcher.register(function(action){
       break;
     case EchoConstants.UPDATE_LISTEN_RADIUS:
       EchoStore.updateListenRadius(action.radius);
+      break;
+    case EchoConstants.SAVE_LISTEN_RADIUS:
+      EchoStore.saveListenRadius();
       break;
     default: 
       //no op

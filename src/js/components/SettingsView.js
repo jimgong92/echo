@@ -20,15 +20,19 @@ var SettingsView = React.createClass({
     EchoActions.updateListenRadius(e.target.value);
     this.setState(getEchoSettings);
   },
+  _onSave: function(e){
+    EchoActions.saveListenRadius();
+  },
   render: function(){
     return (
       <div id="settings-view">
         <label htmlFor="listen-radius">Listen Radius:</label><br />
         <input type="range" name="listen-radius" 
           value={this.state.listenRadius} 
-          min={2} max={100} 
+          min={2} max={500} 
           step={1} 
-          onChange={this._onChange}/>
+          onChange={this._onChange}
+          onBlur={this._onSave} />
         <span>{this.state.listenRadius + ' mi'}</span>
       </div>
     )

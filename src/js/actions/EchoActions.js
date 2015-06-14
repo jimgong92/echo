@@ -18,6 +18,11 @@ var EchoActions = {
       actionType: EchoConstants.UPDATE_LISTEN_RADIUS,
       radius: r
     });
+  },
+  saveListenRadius: function(){
+    AppDispatcher.dispatch({
+      actionType: EchoConstants.SAVE_LISTEN_RADIUS
+    });
   }
 };
 
