@@ -58,7 +58,7 @@ function spec(){
         });
     });
 
-    it('should retrieve echos within specified radius from database', function(done){
+    it('should retrieve echos within specified radius', function(done){
       var radiusMi = 50;
       var user = {
         lon: echoObj.lon + 0.1,
@@ -84,7 +84,24 @@ function spec(){
 
           done();
         });
-    })
+    });
+
+    it('should not retrieve echos outside of specified radius', function(done){
+      var radiusMi = 50;
+      var user = {
+        lon: 0,
+        lat: 0
+      };
+      var getParams = 'lon=' + user.lon + '&lat=' + user.lat + '&radius=' + radiusMi;
+      request.get('/api/echo?' + getParams)
+        .end(function(err, res){
+
+          var echos = JSON.parse(res.text).results;
+          expect(echos.length).to.equal(0);
+
+          done();
+        });
+    });
     
   });
 
