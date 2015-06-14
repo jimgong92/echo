@@ -5,11 +5,13 @@ function spec(){
 
   describe('API', function(){
 
+
+
     var echoObj = {
       'text': 'Test Echo',
       'date': new Date(),
-      'lon': 37.7768,
-      'lat': -122.4897
+      'lon': -122.4897,
+      'lat': 37.7768
     };
     var echoId;
 
@@ -55,6 +57,34 @@ function spec(){
           done();
         });
     });
+
+    it('should retrieve echos within specified radius from database', function(done){
+      var radiusMi = 50;
+      var user = {
+        lon: echoObj.lon + 0.1,
+        lat: echoObj.lat - 0.5
+      };
+      var getParams = 'lon=' + user.lon + '&lat=' + user.lat + '&radius=' + radiusMi;
+      request.get('/api/echo?' + getParams)
+        .end(function(err, res){
+
+          var echos = JSON.parse(res.text).results;
+          var last = echos[echos.length - 1];
+          var gotId = last.id;
+          var gotText = last.text;
+          var gotDate = new Date(last.date).toISOString().substring(0,20);
+          var gotLon = last.lon;
+          var gotLat = last.lat;
+
+          expect(gotId).to.equal(echoId);
+          expect(gotText).to.equal(echoObj.text);
+          expect(gotDate).to.equal(echoObj.date.toISOString().substring(0,20));
+          expect(gotLon).to.equal(echoObj.lon);
+          expect(gotLat).to.equal(echoObj.lat);
+
+          done();
+        });
+    })
     
   });
 

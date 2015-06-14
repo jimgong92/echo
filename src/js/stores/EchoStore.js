@@ -47,7 +47,7 @@ function getEchosInRadius(){
     _listenLon = coordinates.lon;
     _listenLat = coordinates.lat;
 
-    getAll(); //TODO: Change to getEchosInRadius eventually as default init
+    getEchosInRadius(); //TODO: Change to getEchosInRadius eventually as default init
   });
 })();
 

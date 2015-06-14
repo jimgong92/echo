@@ -18,3 +18,5 @@ def router(app):
       params = request.args
       if (len(params) == 0):
         return jsonify(results=get_all_echos())
+      else:
+        return jsonify(results=get_echos(params))
