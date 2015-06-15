@@ -3,11 +3,10 @@ var React = require('React');
 var mui = require('material-ui');
 
 var EchoStore = require('../stores/EchoStore');
-//TODO: Add to EchoSettings when ready
-// whisperRadius: EchoStore.getWhisperRadius(),
 function getEchoSettings(){
   return {
-    listenRadius: EchoStore.getListenRadius()
+    listenRadius: EchoStore.getListenRadius(),
+    whisperRadius: EchoStore.getWhisperRadius()
   };
 }
 var EchoActions = require('../actions/EchoActions');
@@ -16,12 +15,16 @@ var SettingsView = React.createClass({
   getInitialState: function(){
     return getEchoSettings();
   },
-  _onChange: function(e){
-    EchoActions.updateListenRadius(e.target.value);
-    this.setState(getEchoSettings);
+  _onListenChange: function(e){
+    EchoActions.saveListenRadius(e.target.value);
+    this.setState(getEchoSettings());
   },
-  _onSave: function(e){
-    EchoActions.saveListenRadius();
+  _onListenUpdate: function(e){
+    EchoActions.updateListenRadius();
+  },
+  _onWhisperChange: function(e){
+    EchoActions.saveWhisperRadius(e.target.value);
+    this.setState(getEchoSettings())
   },
   render: function(){
     return (
@@ -29,11 +32,21 @@ var SettingsView = React.createClass({
         <label htmlFor="listen-radius">Listen Radius:</label><br />
         <input type="range" name="listen-radius" 
           value={this.state.listenRadius} 
-          min={2} max={500} 
+          min={1} max={100} 
           step={1} 
-          onChange={this._onChange}
-          onBlur={this._onSave} />
+          onChange={this._onListenChange}
+          onBlur={this._onListenUpdate} />
         <span>{this.state.listenRadius + ' mi'}</span>
+
+        <br />
+
+        <label htmlFor="whisper-radius">Whisper Radius:</label><br />
+        <input type="range" name="whisper-radius" 
+          value={this.state.whisperRadius} 
+          min={1} max={100} 
+          step={1} 
+          onChange={this._onWhisperChange} />
+        <span>{this.state.whisperRadius + ' mi'}</span>
       </div>
     )
   }

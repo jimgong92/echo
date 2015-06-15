@@ -10,7 +10,8 @@ var CHANGE_EVENT = 'change';
 
 var _echos = [];
 var _listenRadius = 100;
-var _listenLon = 0, _listenLat = 0; //Default coordinates of Point(0 0), where the "listen pin" is located 
+var _whisperRadius = 5;
+var _userLon = 0, _userLat = 0; //Default coordinates of Point(0 0), where the "listen pin" is located 
 
 function getAll(){
   $.ajax({
@@ -28,7 +29,7 @@ function getAll(){
 };
 function getEchosInRadius(){
   var rQuery = 'radius=' + _listenRadius;
-  var xyQuery= 'lon=' + _listenLon + '&lat=' + _listenLat;
+  var xyQuery= 'lon=' + _userLon + '&lat=' + _userLat;
   $.ajax({
     url: window.location.origin + '/api/echo?' + xyQuery + '&' + rQuery,
     type: 'GET',
@@ -44,8 +45,8 @@ function getEchosInRadius(){
 }
 (function init(){
   utils.getLocation(function(coordinates){
-    _listenLon = coordinates.lon;
-    _listenLat = coordinates.lat;
+    _userLon = coordinates.lon;
+    _userLat = coordinates.lat;
 
     getEchosInRadius(); //TODO: Change to getEchosInRadius eventually as default init
   });
@@ -87,11 +88,17 @@ var EchoStore = assign({}, EventEmitter.prototype, {
   getListenRadius: function(){
     return _listenRadius;
   },
-  updateListenRadius: function(radius){
+  getWhisperRadius: function(){
+    return _whisperRadius;
+  },
+  saveListenRadius: function(radius){
     _listenRadius = radius;
   },
-  saveListenRadius: function(){
+  updateListenRadius: function(){
     getEchosInRadius();
+  },
+  saveWhisperRadius: function(radius){
+    _whisperRadius = radius;
   },
   emitChange: function(){
     this.emit(CHANGE_EVENT);
@@ -115,11 +122,14 @@ AppDispatcher.register(function(action){
     case EchoConstants.GET_ALL_ECHOS:
       EchoStore.getAllEchos();
       break;
-    case EchoConstants.UPDATE_LISTEN_RADIUS:
-      EchoStore.updateListenRadius(action.radius);
-      break;
     case EchoConstants.SAVE_LISTEN_RADIUS:
-      EchoStore.saveListenRadius();
+      EchoStore.saveListenRadius(action.radius);
+      break;
+    case EchoConstants.UPDATE_LISTEN_RADIUS:
+      EchoStore.updateListenRadius();
+      break;
+    case EchoConstants.SAVE_WHISPER_RADIUS:
+      EchoStore.saveWhisperRadius(action.radius);
       break;
     default: 
       //no op

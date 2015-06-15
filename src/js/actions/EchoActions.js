@@ -13,15 +13,21 @@ var EchoActions = {
       actionType: EchoConstants.GET_ALL_ECHOS
     });
   },
-  updateListenRadius: function(r){
+  saveListenRadius: function(r){
     AppDispatcher.dispatch({
-      actionType: EchoConstants.UPDATE_LISTEN_RADIUS,
+      actionType: EchoConstants.SAVE_LISTEN_RADIUS,
       radius: r
     });
   },
-  saveListenRadius: function(){
+  updateListenRadius: function(){
     AppDispatcher.dispatch({
-      actionType: EchoConstants.SAVE_LISTEN_RADIUS
+      actionType: EchoConstants.UPDATE_LISTEN_RADIUS
+    });
+  },
+  saveWhisperRadius: function(r){
+    AppDispatcher.dispatch({
+      actionType: EchoConstants.SAVE_WHISPER_RADIUS,
+      radius: r
     });
   }
 };
