@@ -8,7 +8,8 @@ SET TIME ZONE 'UTC';
 CREATE TABLE echos (
   echo_id serial PRIMARY KEY,
   echo_text varchar(255),
-  echo_date timestamptz
+  echo_date timestamptz,
+  echo_wRadius real
 );
 
 CREATE EXTENSION IF NOT EXISTS postgis;

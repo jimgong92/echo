@@ -8,17 +8,13 @@ var EchoActions = require('../actions/EchoActions');
 var EchoStore = require('../stores/EchoStore');
 
 var PostView = React.createClass({
-  _onSave: function(value, whispered){
-    console.log(whispered);
-    EchoActions.postEcho(value);
-  },
-  _onBroadcast: function(){
-    var value = this.refs['echo-input'].state.value;
-    this._onSave(value);
+  _onBroadcast: function(value){
+    value = value || this.refs['echo-input'].state.value;
+    EchoActions.postEcho(value, false);
   },
   _onWhisper: function(){
     var value = this.refs['echo-input'].state.value;
-    
+    EchoActions.postEcho(value, true);
   },
   render: function(){
     return (
@@ -27,7 +23,7 @@ var PostView = React.createClass({
           type="text"
           id='echo-input'
           placeholder="What do you want to share?"
-          onSave={this._onSave}
+          onSave={this._onBroadcast}
           ref='echo-input'/>
         <div id="broadcast-button" className="post-button">
           <RaisedButton label="Broadcast" primary={true} onClick={this._onBroadcast}/>

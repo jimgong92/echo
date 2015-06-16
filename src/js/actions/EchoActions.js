@@ -2,10 +2,11 @@ var AppDispatcher = require('../dispatcher/AppDispatcher');
 var EchoConstants = require('../constants/EchoConstants');
 
 var EchoActions = {
-  postEcho: function(text){
+  postEcho: function(text, isWhispered){
     AppDispatcher.dispatch({
       actionType: EchoConstants.POST_ECHO,
-      text: text
+      text: text,
+      isWhispered: isWhispered
     });
   },
   getAllEchos: function(){

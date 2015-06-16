@@ -54,12 +54,13 @@ function getEchosInRadius(){
 
 var EchoStore = assign({}, EventEmitter.prototype, {
   
-  postEcho: function(text){
+  postEcho: function(text, isWhispered){
     utils.getLocation(function(coordinates){
       var echoObj = {
         text: text,
         lat: coordinates.lat,
-        lon: coordinates.lon
+        lon: coordinates.lon,
+        wRadius: isWhispered ? _whisperRadius : -1
       };
       console.log(echoObj);
       $.ajax({
@@ -117,7 +118,7 @@ var EchoStore = assign({}, EventEmitter.prototype, {
 AppDispatcher.register(function(action){
   switch(action.actionType){
     case EchoConstants.POST_ECHO:
-      EchoStore.postEcho(action.text);
+      EchoStore.postEcho(action.text, action.isWhispered);
       break;
     case EchoConstants.GET_ALL_ECHOS:
       EchoStore.getAllEchos();

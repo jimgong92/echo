@@ -11,9 +11,18 @@ function spec(){
       'text': 'Test Echo',
       'date': new Date(),
       'lon': -122.4897,
-      'lat': 37.7768
+      'lat': 37.7768,
+      'wRadius': -1
     };
     var echoId;
+
+    var whisperObj = {
+      'text': 'Whispered Echo',
+      'date': new Date(),
+      'lon': -123,
+      'lat': 37.7768,
+      'wRadius': 5
+    };
 
     it('should add an echo to database', function(done){
       request.post('/api/echo')
@@ -25,13 +34,15 @@ function spec(){
           var addedDate = new Date(addedEcho.date).toISOString().substring(0,20);
           var addedLon = addedEcho.lon;
           var addedLat = addedEcho.lat;
+          var addedWRad = addedEcho.wRad;
 
           echoId = addedEcho.id;
           expect(addedText).to.equal(echoObj.text);
           expect(addedDate).to.equal(echoObj.date.toISOString().substring(0,20));
           expect(addedLon).to.equal(echoObj.lon);
           expect(addedLat).to.equal(echoObj.lat);
-         
+          expect(addedWRad).to.equal(echoObj.wRad);
+
           done();
         });
     });
@@ -59,12 +70,12 @@ function spec(){
     });
 
     it('should retrieve echos within specified radius', function(done){
-      var radiusMi = 50;
+      var searchRad = 50;
       var user = {
         lon: echoObj.lon + 0.1,
         lat: echoObj.lat - 0.5
       };
-      var getParams = 'lon=' + user.lon + '&lat=' + user.lat + '&radius=' + radiusMi;
+      var getParams = 'lon=' + user.lon + '&lat=' + user.lat + '&radius=' + searchRad;
       request.get('/api/echo?' + getParams)
         .end(function(err, res){
 
@@ -87,12 +98,12 @@ function spec(){
     });
 
     it('should not retrieve echos outside of specified radius', function(done){
-      var radiusMi = 50;
+      var searchRad = 50;
       var user = {
         lon: 0,
         lat: 0
       };
-      var getParams = 'lon=' + user.lon + '&lat=' + user.lat + '&radius=' + radiusMi;
+      var getParams = 'lon=' + user.lon + '&lat=' + user.lat + '&radius=' + searchRad;
       request.get('/api/echo?' + getParams)
         .end(function(err, res){
 
@@ -101,6 +112,30 @@ function spec(){
 
           done();
         });
+    });
+
+    it('should add whispered echos', function(done){
+      request.post('/api/echo')
+        .send(whisperObj)
+        .end(function(err, res){
+
+          var addedEcho = JSON.parse(res.text);
+          var addedText = addedEcho.text;
+          var addedDate = new Date(addedEcho.date).toISOString().substring(0,20);
+          var addedLon = addedEcho.lon;
+          var addedLat = addedEcho.lat;
+          var addedWRad = addedEcho.wRad;
+
+          echoId = addedEcho.id;
+          expect(addedText).to.equal(whisperObj.text);
+          expect(addedDate).to.equal(whisperObj.date.toISOString().substring(0,20));
+          expect(addedLon).to.equal(whisperObj.lon);
+          expect(addedLat).to.equal(whisperObj.lat);
+          expect(addedWRad).to.equal(whisperObj.wRad);
+
+          done();
+        });
+      
     });
     
   });
