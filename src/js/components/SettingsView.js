@@ -28,7 +28,7 @@ var SettingsView = React.createClass({
   },
   render: function(){
     return (
-      <div id="settings-view">
+      <section id="settings-view">
         <label htmlFor="listen-radius">Listen Radius:</label><br />
         <input type="range" name="listen-radius" 
           value={this.state.listenRadius} 
@@ -47,7 +47,7 @@ var SettingsView = React.createClass({
           step={1} 
           onChange={this._onWhisperChange} />
         <span>{this.state.whisperRadius + ' mi'}</span>
-      </div>
+      </section>
     )
   }
 });

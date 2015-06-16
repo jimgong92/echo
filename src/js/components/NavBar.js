@@ -20,6 +20,11 @@ var NavBar = React.createClass({
             secondary={true}
             label="Home" />
         </Link>
+        <Link to="analytics">
+          <FlatButton
+            secondary={true}
+            label="Analytics" />
+        </Link>
         <Link to="settings">
           <FlatButton
             secondary={true}

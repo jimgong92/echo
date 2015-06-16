@@ -14,17 +14,15 @@ require("react-tap-event-plugin")();
  */ 
 var App = require('./components/AppComponent');
 var EchoView = require('./components/EchoView');
+var AnalyticsView = require('./components/AnalyticsView');
 var SettingsView = require('./components/SettingsView');
 
-//TODO: Uncomment when ready
-// var AnalyticsView = require('./components/AnalyticsView');
-
 //TODO: Put in routes 
-// <Route name="analytics" path="analytics" handler={AnalyticsView} />
 
 var routes = (
   <Route name="home" path="/" handler={App}>
     <DefaultRoute handler={EchoView} />
+<Route name="analytics" path="analytics" handler={AnalyticsView} />
     <Route name="settings" path="settings" handler={SettingsView} />
   </Route>
 );
