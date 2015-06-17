@@ -83,10 +83,18 @@ var EchoStore = assign({}, EventEmitter.prototype, {
     console.log(_echos);
     return _echos;
   },
+  getEchoCoordinates: function(){
+    var res = [];
+    for (var i = 0; i < _echos.length; i++){
+      var echo = _echos[i];
+      res.push({lon: echo.lon, lat: echo.lat});
+    }
+    return res;
+  },
   getAllEchos: function(){
     //TODO: Retrieve all echos from database
   },
-  getUserCoord: function(){
+  getUserCoordinates: function(){
     return {
       lon: _userLon,
       lat: _userLat

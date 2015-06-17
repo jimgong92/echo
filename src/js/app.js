@@ -22,7 +22,7 @@ var SettingsView = require('./components/SettingsView');
 var routes = (
   <Route name="home" path="/" handler={App}>
     <DefaultRoute handler={EchoView} />
-<Route name="analytics" path="analytics" handler={AnalyticsView} />
+    <Route name="analytics" path="analytics" handler={AnalyticsView} />
     <Route name="settings" path="settings" handler={SettingsView} />
   </Route>
 );
