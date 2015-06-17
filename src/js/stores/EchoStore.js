@@ -86,6 +86,12 @@ var EchoStore = assign({}, EventEmitter.prototype, {
   getAllEchos: function(){
     //TODO: Retrieve all echos from database
   },
+  getUserCoord: function(){
+    return {
+      lon: _userLon,
+      lat: _userLat
+    };
+  },
   getListenRadius: function(){
     return _listenRadius;
   },

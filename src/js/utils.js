@@ -19,7 +19,10 @@ var getLocation = function(callback){
         lat: position.coords.latitude,
         lon: position.coords.longitude
       });
-    }, geoError, geoOptions);
+    }, function(err){
+      console.error("Error occurred:", err);
+      callback({ lat: 0, lon: 0 });
+    }, geoOptions);
   }
   else return false;
 }
