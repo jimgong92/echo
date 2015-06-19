@@ -10,6 +10,13 @@ var DefaultRoute = Router.DefaultRoute;
 require("react-tap-event-plugin")();
 
 /**
+ * Startup mapbox
+ */
+require('mapbox.js'); //auto-attaches to window.L
+L.mapbox.accessToken = 'pk.eyJ1IjoiamltbXl0b25pYyIsImEiOiJlYzQwMjUyYTdkMDdmYzRlMDAwNGNlNTM4OWRkOGQxYyJ9.WfXFPfUSGRuq6B5x9rYjIg';
+
+
+/**
  * Required Components
  */ 
 var App = require('./components/AppComponent');

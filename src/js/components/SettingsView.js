@@ -32,7 +32,7 @@ var SettingsView = React.createClass({
         <label htmlFor="listen-radius">Listen Radius:</label><br />
         <input type="range" name="listen-radius" 
           value={this.state.listenRadius} 
-          min={1} max={100} 
+          min={1} max={500} 
           step={1} 
           onChange={this._onListenChange}
           onBlur={this._onListenUpdate} />
@@ -43,7 +43,7 @@ var SettingsView = React.createClass({
         <label htmlFor="whisper-radius">Whisper Radius:</label><br />
         <input type="range" name="whisper-radius" 
           value={this.state.whisperRadius} 
-          min={1} max={100} 
+          min={1} max={500} 
           step={1} 
           onChange={this._onWhisperChange} />
         <span>{this.state.whisperRadius + ' mi'}</span>

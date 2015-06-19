@@ -100,6 +100,15 @@ var EchoStore = assign({}, EventEmitter.prototype, {
       lat: _userLat
     };
   },
+  getCoordinateMarkers: function(){
+    var markers = [new L.Marker(new L.LatLng(_userLat, _userLon))];
+    for (var i = 0; i < _echos.length; i++){
+      var echo = _echos[i];
+      var echoMarker = new L.Marker(new L.LatLng(echo.lat, echo.lon));
+      markers.push(echoMarker);
+    }
+    return markers;
+  },
   getListenRadius: function(){
     return _listenRadius;
   },
